@@ -10,6 +10,15 @@ and each column represents a single day across all patients.
 import numpy as np
 
 
+def patient_normalise(data):
+    """Normalise patient data from a 2D inflammation data array"""
+    max_data = np.max(data, axis=1)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        normalised = data / max_data[:, np.newaxis]
+    normalised[np.isnan(normalised)] = 0
+    normalised[normalised < 0] = 0
+    return normalised
+
 def load_csv(filename):
     """Load a Numpy array from a CSV
 
