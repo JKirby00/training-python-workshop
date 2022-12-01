@@ -1,0 +1,28 @@
+name: CI
+
+# We can specify which GitHub events will trigger a CI build
+on: push
+
+# now define a single jon 'build'
+jobs:
+  build:
+  # we can also specify the OS to run tests on
+    runs-on: ubunto-latest
+
+    # a job is a sequence of steps
+    steps:
+    # Check out repo and set up Python
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Intsall Python dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install -r requirements.txt
+          pip3 install -e .
+      - name: Test with Pytest
+        run: |
+          pytest tests/test_models.py
