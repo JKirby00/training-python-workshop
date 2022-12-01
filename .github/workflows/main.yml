@@ -7,7 +7,7 @@ on: push
 jobs:
   build:
   # we can also specify the OS to run tests on
-    runs-on: ubunto-latest
+    runs-on: ubuntu-latest
 
     # a job is a sequence of steps
     steps:
